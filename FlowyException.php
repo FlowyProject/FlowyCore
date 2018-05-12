@@ -1,8 +1,10 @@
 <?php
 namespace Flowy;
 
-if(!class_exists('Flowy\FlowyException')){
+if(!class_exists('Flowy\FlowyException')) {
 
-class FlowyException extends \Exception{}
+    class FlowyException extends \Exception
+    {
+    }
 
-}// class_exists
+}
