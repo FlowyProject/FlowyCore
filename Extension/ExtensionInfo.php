@@ -55,7 +55,7 @@ if(!class_exists('Flowy\Extension\ExtensionInfo')) {
                 if ($method->isStatic()) continue;
 
                 $params = $method->getParameters();
-                if (1 <= count($params) && substr($method->getName(), -8) === 'ExMethod' && $params[0]->getClass() instanceof \ReflectionClass && is_subclass_of($params[0]->getClass()->getName(), Flowy::class)) {
+                if (1 <= count($params) && substr($method->getName(), -8) === 'ExMethod' && $params[0]->getClass() instanceof \ReflectionClass && is_a($params[0]->getClass()->getName(), Flowy::class, true)) {
                     $this->methods[] = $method->getName();
                 }
             }
