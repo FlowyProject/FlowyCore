@@ -49,7 +49,7 @@ if(!class_exists('Flowy\Flow\FlowRepository')) {
 
         public function exists(FlowInfo $flowInfo) : bool
         {
-            return isset($this->flowInfoMap[$flowInfo->getFlowId()]) && $this->flowInfoMap[$flowInfo->getFlowId()]->getInstance() === $flowInfo->getInstance();
+            return isset($this->flowInfoMap[$flowInfo->getFlowId()]) && $this->flowInfoMap[$flowInfo->getFlowId()]->getFlow() === $flowInfo->getFlow();
         }
 
         public function existsId(int $flowId) : bool
