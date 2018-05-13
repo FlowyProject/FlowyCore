@@ -27,7 +27,7 @@ if(!class_exists('Flowy\Flowy')) {
         {
             if (!isset($this->extensionMethods[$name]))
                 throw new FlowyException();
-            ($this->extensions[$this->extensionMethods[$name]]->$name)($this, ...$arguments);
+            ($this->extensions[$this->extensionMethods[$name]]->getInstance())->$name($this, ...$arguments);
         }
 
         public function __construct()

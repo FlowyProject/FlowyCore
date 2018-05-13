@@ -41,7 +41,7 @@ if(!class_exists('Flowy\Flow\FlowRepository')) {
 
         public function get(int $flowId) : FlowInfo
         {
-            if (isset($this->flowInfoMap[$flowId])) {
+            if (!isset($this->flowInfoMap[$flowId])) {
                 throw new \OutOfBoundsException();
             }
             return $this->flowInfoMap[$flowId];
