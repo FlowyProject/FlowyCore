@@ -66,6 +66,7 @@ if(!class_exists('Flowy\Flowy')) {
         {
             $flowInfo = $this->flowRepository->add($flow, $active);
             $this->handleReturn($flowInfo);
+            return $flowInfo;
         }
 
         public function handleReturn(FlowInfo $flowInfo)
