@@ -1,5 +1,5 @@
 {
-    "name": "FlowyProject/FlowyCore",
+    "name": "flowy/core",
     "description": "Awaitable for PocketMine-MP",
     "type": "library",
     "license": "LGPL-2.1",
