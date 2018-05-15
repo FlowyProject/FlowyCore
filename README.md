@@ -4,8 +4,7 @@ __Awaitable for PocketMine-MP__
 ## Install
 __Composer__
 ```
-composer config repositories.FlowyProject/FlowyCore vcs https://github.com/FlowyProject/FlowyCore
-composer require FlowyProject/FlowyCore:dev-master
+composer require flowy/core
 ```
 __GitSubmodule__
 ```
