@@ -6,6 +6,9 @@ use Flowy\Flow\FlowInfo;
 use Flowy\Flow\FlowRepository;
 use pocketmine\event\Listener;
 use pocketmine\plugin\PluginBase;
+use pocketmine\plugin\PluginDescription;
+use pocketmine\plugin\PluginLoader;
+use pocketmine\Server;
 
 if(!class_exists('Flowy\Flowy')) {
 
@@ -30,7 +33,7 @@ if(!class_exists('Flowy\Flowy')) {
             ($this->extensions[$this->extensionMethods[$name]]->getInstance())->$name($this, ...$arguments);
         }
 
-        public function __construct()
+        public function __construct(PluginLoader $loader, Server $server, PluginDescription $description, string $dataFolder, string $file)
         {
             $this->initExtension();
 
@@ -60,6 +63,8 @@ if(!class_exists('Flowy\Flowy')) {
             $this->flowRepository->setDefaultActiveChangedHandler($activeChangedHandler);
             $this->flowRepository->setDefaultContinueHandler($continueHandler);
             $this->flowRepository->setDeleteHandler($deleteHandler);
+
+            parent::__construct($loader, $server, $description, $dataFolder, $file);
         }
 
         public function manage(\Generator $flow, bool $active = true) : FlowInfo
@@ -69,7 +74,7 @@ if(!class_exists('Flowy\Flowy')) {
             return $flowInfo;
         }
 
-        public function handleReturn(FlowInfo $flowInfo)
+        public function handleReturn(FlowInfo $flowInfo) : void
         {
             if (!$this->flowRepository->exists($flowInfo))
                 throw new FlowyException();

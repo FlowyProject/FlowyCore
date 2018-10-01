@@ -28,7 +28,7 @@ if(!class_exists('Flowy\Flow\FlowRepository')) {
             if (($this->addHandler)($flow, $active)) {
                 return $this->flowInfoMap[$this->nextId] = new FlowInfo($this, $flow, $this->nextId++, $active, $this->activeChangedHandler, $this->continueHandler);
             }
-            return nulll;
+            return null;
         }
 
         public function delete(int $flowId) : void

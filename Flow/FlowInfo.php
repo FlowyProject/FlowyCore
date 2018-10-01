@@ -59,7 +59,7 @@ if(!class_exists('Flowy\Flow\FlowInfo')) {
             return $this->activeChangedHandler;
         }
 
-        public function setActive(bool $active)
+        public function setActive(bool $active) : void
         {
             $change = $this->active !== $active;
             $this->active = $active;
