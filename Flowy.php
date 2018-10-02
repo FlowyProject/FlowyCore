@@ -16,7 +16,7 @@ if(!class_exists('Flowy\Flowy')) {
     {
         use ExtensionManagerTrait;
 
-        const VERSION = '2.0.0';
+        const VERSION = '3.0.0';
 
         /** @var FlowManager */
         protected $flowManager;
