@@ -63,25 +63,25 @@ if(!class_exists('Flowy\Flow\FlowManager')) {
         }
 
         /** @see defaultAddHandler */
-        public function setAddHandler(callable $handler) : void
+        public function setAddHandler(?callable $handler) : void
         {
             $this->addHandler = $handler ?? [ $this, 'defaultAddHandler' ];
         }
 
         /** @see defaultDeleteHandler */
-        public function setDeleteHandler(callable $handler) : void
+        public function setDeleteHandler(?callable $handler) : void
         {
             $this->deleteHandler = $handler ?? [ $this, 'defaultDeleteHandler' ];
         }
 
         /** @see defaultActiveChangedHandler */
-        public function setDefaultActiveChangedHandler(callable $handler) : void
+        public function setDefaultActiveChangedHandler(?callable $handler) : void
         {
             $this->activeChangedHandler = $handler ?? [ $this, 'defaultActiveChangedHandler' ];
         }
 
         /** @see defaultContinueHandler */
-        public function setDefaultContinueHandler(callable $handler) : void
+        public function setDefaultContinueHandler(?callable $handler) : void
         {
             $this->continueHandler = $handler ?? [ $this, 'defaultContinueHandler' ];
         }
