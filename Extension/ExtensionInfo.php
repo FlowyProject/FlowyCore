@@ -16,9 +16,9 @@ if(!class_exists('Flowy\Extension\ExtensionInfo')) {
         private function __construct(string $extension)
         {
             if (!class_exists($extension))
-                throw new FlowyException();
+                throw new FlowyException("Class not defined");
             if (!is_subclass_of($extension, FlowyExtension::class))
-                throw new FlowyException();
+                throw new FlowyException("Extension must inherit FlowyExtension interface");
 
             $this->instance = new $extension();
             $this->loadMethods();

@@ -29,7 +29,7 @@ if(!class_exists('Flowy\Flowy')) {
         public function __call($name, $arguments)
         {
             if (!isset($this->extensionMethods[$name]))
-                throw new FlowyException();
+                throw new FlowyException("Call to undefined function ${name}");
             ($this->extensions[$this->extensionMethods[$name]]->getInstance())->$name($this, ...$arguments);
         }
 
@@ -77,7 +77,7 @@ if(!class_exists('Flowy\Flowy')) {
         public function handleReturn(FlowInfo $flowInfo) : void
         {
             if (!$this->flowRepository->exists($flowInfo))
-                throw new FlowyException();
+                throw new FlowyException("An unknown FlowInfo was passed");
 
             foreach ($this->extensions as $extension) {
                 if ($extension->getInstance()->handleReturn($this, $flowInfo)) {
