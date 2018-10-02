@@ -6,8 +6,8 @@ if(!class_exists('Flowy\Flow\FlowInfo')) {
     class FlowInfo
     {
 
-        /** @var FlowRepository */
-        private $repository;
+        /** @var FlowManager */
+        private $manager;
 
         /** @var \Generator */
         private $flow;
@@ -24,9 +24,9 @@ if(!class_exists('Flowy\Flow\FlowInfo')) {
         /** @var callable */
         private $continueHandler;
 
-        public function __construct(FlowRepository $repository, \Generator $flow, int $flowId, bool $active, callable $activeChangedHandler, callable $continueHandler)
+        public function __construct(FlowManager $manager, \Generator $flow, int $flowId, bool $active, callable $activeChangedHandler, callable $continueHandler)
         {
-            $this->repository = $repository;
+            $this->manager = $manager;
             $this->flow = $flow;
             $this->flowId = $flowId;
             $this->active = $active;
@@ -34,9 +34,9 @@ if(!class_exists('Flowy\Flow\FlowInfo')) {
             $this->continueHandler = $continueHandler;
         }
 
-        public function getRepository() : FlowRepository
+        public function getManager() : FlowManager
         {
-            return $this->repository;
+            return $this->manager;
         }
 
         public function getFlow() : \Generator
@@ -77,8 +77,8 @@ if(!class_exists('Flowy\Flow\FlowInfo')) {
 
         public function delete() : void
         {
-            $this->repository->delete($this->flowId);
-            $this->repository = null;
+            $this->manager->delete($this->flowId);
+            $this->manager = null;
         }
 
         public function continue($arg = null) : bool

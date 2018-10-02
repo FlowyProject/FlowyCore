@@ -1,9 +1,9 @@
 <?php
 namespace Flowy\Flow;
 
-if(!interface_exists('Flowy\Flow\FlowRepositoryInterface')) {
+if(!interface_exists('Flowy\Flow\FlowManagerInterface')) {
 
-    interface FlowRepositoryInterface
+    interface FlowManagerInterface
     {
         public function add(\Generator $flow, bool $active = true) : FlowInfo;
 

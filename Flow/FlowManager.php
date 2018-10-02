@@ -1,9 +1,9 @@
 <?php
 namespace Flowy\Flow;
 
-if(!class_exists('Flowy\Flow\FlowRepository')) {
+if(!class_exists('Flowy\Flow\FlowManager')) {
 
-    class FlowRepository implements FlowRepositoryInterface
+    class FlowManager implements FlowManagerInterface
     {
         /** @var FlowInfo[] */
         private $flowInfoMap = [];

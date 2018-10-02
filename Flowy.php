@@ -3,7 +3,7 @@ namespace Flowy;
 
 use Flowy\Extension\ExtensionManagerTrait;
 use Flowy\Flow\FlowInfo;
-use Flowy\Flow\FlowRepository;
+use Flowy\Flow\FlowManager;
 use pocketmine\event\Listener;
 use pocketmine\plugin\PluginBase;
 use pocketmine\plugin\PluginDescription;
@@ -18,12 +18,12 @@ if(!class_exists('Flowy\Flowy')) {
 
         const VERSION = '2.0.0';
 
-        /** @var FlowRepository */
-        protected $flowRepository;
+        /** @var FlowManager */
+        protected $flowManager;
 
-        public function getFlowRepository()
+        public function getFlowManager()
         {
-            return $this->flowRepository;
+            return $this->flowManager;
         }
 
         public function __call($name, $arguments)
@@ -37,7 +37,7 @@ if(!class_exists('Flowy\Flowy')) {
         {
             $this->initExtension();
 
-            $this->flowRepository = new FlowRepository();
+            $this->flowManager = new FlowManager();
             $activeChangedHandler = function (FlowInfo $flowInfo) : void {
                 foreach ($this->extensions as $extension) {
                     if ($extension->getInstance()->handleActiveChanged($this, $flowInfo)) {
@@ -60,23 +60,23 @@ if(!class_exists('Flowy\Flowy')) {
                 }
                 return true;
             };
-            $this->flowRepository->setDefaultActiveChangedHandler($activeChangedHandler);
-            $this->flowRepository->setDefaultContinueHandler($continueHandler);
-            $this->flowRepository->setDeleteHandler($deleteHandler);
+            $this->flowManager->setDefaultActiveChangedHandler($activeChangedHandler);
+            $this->flowManager->setDefaultContinueHandler($continueHandler);
+            $this->flowManager->setDeleteHandler($deleteHandler);
 
             parent::__construct($loader, $server, $description, $dataFolder, $file);
         }
 
         public function manage(\Generator $flow, bool $active = true) : FlowInfo
         {
-            $flowInfo = $this->flowRepository->add($flow, $active);
+            $flowInfo = $this->flowManager->add($flow, $active);
             $this->handleReturn($flowInfo);
             return $flowInfo;
         }
 
         public function handleReturn(FlowInfo $flowInfo) : void
         {
-            if (!$this->flowRepository->exists($flowInfo))
+            if (!$this->flowManager->exists($flowInfo))
                 throw new FlowyException("An unknown FlowInfo was passed");
 
             foreach ($this->extensions as $extension) {
