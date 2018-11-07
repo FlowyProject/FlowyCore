@@ -12,7 +12,7 @@ use pocketmine\Server;
 
 if(!class_exists('Flowy\Flowy')) {
 
-    abstract class Flowy extends PluginBase implements Listener
+    abstract class Flowy implements Listener
     {
         use ExtensionManagerTrait;
 
