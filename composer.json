@@ -1,14 +1,18 @@
 {
     "name": "flowy/core",
-    "description": "Awaitable for PocketMine-MP",
+    "description": "Coroutine for event handler, PocketMine-MP",
     "type": "library",
     "license": "LGPL-2.1",
-    "minimum-stability": "dev",
     "require": {
         "php": ">=7.2.0",
         "php-64bit": "*"
     },
     "autoload": {
-        "classmap": ["./"]
+        "psr-4": {
+            "flowy\\": "src/"
+        },
+        "files": [
+            "src/Listen.php"
+        ]
     }
 }
