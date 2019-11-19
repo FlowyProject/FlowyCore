@@ -4,6 +4,7 @@ namespace flowy;
 use pocketmine\event\Event;
 use pocketmine\event\HandlerList;
 use pocketmine\event\Listener;
+use pocketmine\plugin\EventExecutor;
 use pocketmine\plugin\MethodEventExecutor;
 use pocketmine\plugin\Plugin;
 use pocketmine\plugin\PluginException;

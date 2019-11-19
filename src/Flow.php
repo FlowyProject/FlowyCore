@@ -28,19 +28,28 @@ class Flow {
         }));
         $this->running = false;
         $this->events = [];
+        $this->listenAll();
     }
 
-    public function continue(Event $event): void {
-        if(!$this->valid()) throw new FlowyException();
-        if($this->running) throw new FlowyException();
-        if(!$this->rawFlow->current()->match($event)) return;
+    public function continue(Event $event): void
+    {
+        if (!$this->valid()) throw new FlowyException();
+        if ($this->running) throw new FlowyException();
+        if (!$this->rawFlow->current()->match($event)) return;
 
         $this->listener->cancelAll();
+        $this->run($event);
+        $this->listenAll();
+    }
 
+    public function run(Event $event): void {
         $this->running = true;
         $ret = $this->rawFlow->send($event);
         $this->running = false;
+    }
 
+    public function listenAll(): void {
+        $ret = $this->rawFlow->current();
         if(!$ret instanceof Listen) throw new FlowyException();
         foreach($ret->getEvents() as $class) {
             $this->listener->listen($class);
