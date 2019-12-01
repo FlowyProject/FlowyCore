@@ -7,6 +7,9 @@ class Flow {
     /** @var \Closure */
     protected $flowDefinition;
 
+    /** @var array */
+    protected $flowArguments;
+
     /** @var \Generator */
     protected $rawFlow;
 
@@ -19,10 +22,11 @@ class Flow {
     /** @var string[] */
     protected $events;
 
-    public function __construct(EventListener $listener, \Closure $flowDefinition) {
+    public function __construct(EventListener $listener, \Closure $flowDefinition, array $flowArguments = []) {
         $this->listener = $listener;
         $this->flowDefinition = $flowDefinition;
-        $this->rawFlow = ($this->flowDefinition)();
+        $this->flowArguments = $flowArguments;
+        $this->rawFlow = ($this->flowDefinition)(...$this->flowArguments);
         $this->listener->set_handler(\Closure::fromCallable(function($event){
             $this->continue($event);
         }));

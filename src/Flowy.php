@@ -8,7 +8,7 @@ final class Flowy {
 
     private function __construct() {}
 
-    public static function run(Plugin $plugin, \Closure $closure): Flow {
-        return new Flow(new EventListener($plugin), $closure);
+    public static function run(Plugin $plugin, \Closure $closure, ...$arguments): Flow {
+        return new Flow(new EventListener($plugin), $closure, $arguments);
     }
 }
