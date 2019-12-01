@@ -4,7 +4,7 @@ namespace flowy;
 use pocketmine\event\Event;
 
 class Flow {
-    /** @var \Closure */
+    /** @var callable */
     protected $flowDefinition;
 
     /** @var array */
@@ -22,7 +22,7 @@ class Flow {
     /** @var string[] */
     protected $events;
 
-    public function __construct(EventListener $listener, \Closure $flowDefinition, array $flowArguments = []) {
+    public function __construct(EventListener $listener, callable $flowDefinition, array $flowArguments = []) {
         $this->listener = $listener;
         $this->flowDefinition = $flowDefinition;
         $this->flowArguments = $flowArguments;
