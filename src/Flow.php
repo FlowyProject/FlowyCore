@@ -31,8 +31,7 @@ class Flow {
         $this->listenAll();
     }
 
-    public function continue(Event $event): void
-    {
+    public function continue(Event $event): void {
         if (!$this->valid()) throw new FlowyException();
         if ($this->running) throw new FlowyException();
         if (!$this->rawFlow->current()->match($event)) return;

@@ -6,6 +6,7 @@ use pocketmine\event\Listener;
 use pocketmine\plugin\EventExecutor;
 
 class ClosureEventExecutor implements EventExecutor {
+    /** @var \Closure */
     private $closure;
 
     public function __construct(\Closure $closure) {
