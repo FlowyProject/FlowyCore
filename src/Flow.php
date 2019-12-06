@@ -45,13 +45,13 @@ class Flow {
         $this->listenAll();
     }
 
-    public function run(Event $event): void {
+    protected function run(Event $event): void {
         $this->running = true;
         $ret = $this->rawFlow->send($event);
         $this->running = false;
     }
 
-    public function listenAll(): void {
+    protected function listenAll(): void {
         $ret = $this->rawFlow->current();
         if(!$ret instanceof Listen) throw new FlowyException();
         foreach($ret->getEvents() as $class) {
