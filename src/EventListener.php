@@ -11,7 +11,7 @@ class EventListener implements Listener {
     /** @var Plugin */
     protected $owner;
 
-    /** @var \Closure */
+    /** @var callable */
     protected $handler;
 
     /** @var RegisteredListener[] */
@@ -27,7 +27,7 @@ class EventListener implements Listener {
         $this->disposed = false;
     }
 
-    public function set_handler(\Closure $handler): void {
+    public function set_handler(callable $handler): void {
         if($this->disposed) return;
 
         $this->handler = $handler;

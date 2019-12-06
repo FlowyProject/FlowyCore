@@ -27,9 +27,7 @@ class Flow {
         $this->flowDefinition = $flowDefinition;
         $this->flowArguments = $flowArguments;
         $this->rawFlow = ($this->flowDefinition)(...$this->flowArguments);
-        $this->listener->set_handler(\Closure::fromCallable(function($event){
-            $this->continue($event);
-        }));
+        $this->listener->set_handler([$this, 'continue']);
         $this->running = false;
         $this->events = [];
         $this->listenAll();
