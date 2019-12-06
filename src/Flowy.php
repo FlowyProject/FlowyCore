@@ -4,7 +4,7 @@ namespace flowy;
 use pocketmine\plugin\Plugin;
 
 final class Flowy {
-    const VERSION = '3.1.0';
+    const VERSION = '3.1.1';
 
     private function __construct() {}
 
