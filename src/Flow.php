@@ -42,7 +42,12 @@ class Flow {
 
         $this->listener->cancelAll();
         $this->run($event);
-        $this->listenAll();
+        if($this->valid()) {
+            $this->listenAll();
+        }
+        else {
+            $this->forceShutdown();
+        }
     }
 
     protected function run(Event $event): void {
@@ -63,6 +68,10 @@ class Flow {
         if(!$this->valid()) return;
         if($this->running) throw new FlowyException();
 
+        $this->forceShutdown();
+    }
+
+    protected function forceShutdown(): void {
         $this->flowDefinition = null;
         $this->rawFlow = null;
         $this->listener->dispose();
