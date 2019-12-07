@@ -3,42 +3,54 @@ namespace flowy;
 
 use pocketmine\event\Event;
 
-class Listen {
-    /** @var string[] */
-    protected $events;
+if(!defined("flowy_Listen")) {
+    define("flowy_Listen", 1);
 
-    /** @var callable[] */
-    protected $filters;
+    class Listen
+    {
+        /** @var string[] */
+        protected $events;
 
-    public function __construct(string $event) {
-        $this->events[] = $event;
-        $this->filters = [];
-    }
+        /** @var callable[] */
+        protected $filters;
 
-    public function getEvents(): array {
-        return $this->events;
-    }
-
-    public function match(Event $event): bool {
-        foreach($this->filters as $filter) {
-            if(!$filter($event)) {
-                return false;
-            }
+        public function __construct(string $event)
+        {
+            $this->events[] = $event;
+            $this->filters = [];
         }
-        return true;
+
+        public function getEvents(): array
+        {
+            return $this->events;
+        }
+
+        public function match(Event $event): bool
+        {
+            foreach ($this->filters as $filter) {
+                if (!$filter($event)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public function add(string $event): Listen
+        {
+            $this->events[] = $event;
+            return $this;
+        }
+
+        public function filter(callable $predicate): Listen
+        {
+            $this->filters[] = $predicate;
+            return $this;
+        }
     }
 
-    public function add(string $event): Listen {
-        $this->events[] = $event;
-        return $this;
+    function listen(string $event): Listen
+    {
+        return new Listen($event);
     }
 
-    public function filter(callable $predicate): Listen {
-        $this->filters[] = $predicate;
-        return $this;
-    }
-}
-
-function listen(string $event): Listen {
-    return new Listen($event);
 }

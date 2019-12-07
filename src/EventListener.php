@@ -6,61 +6,72 @@ use pocketmine\event\Listener;
 use pocketmine\plugin\Plugin;
 use pocketmine\plugin\RegisteredListener;
 
-class EventListener implements Listener {
+if(!defined("flowy_EventListener")) {
+    define("flowy_EventListener", 1);
 
-    /** @var Plugin */
-    protected $owner;
+    class EventListener implements Listener
+    {
 
-    /** @var callable */
-    protected $handler;
+        /** @var Plugin */
+        protected $owner;
 
-    /** @var RegisteredListener[] */
-    protected $registeredListeners;
+        /** @var callable */
+        protected $handler;
 
-    /** @var bool */
-    private $disposed;
+        /** @var RegisteredListener[] */
+        protected $registeredListeners;
 
-    public function __construct(Plugin $plugin) {
-        $this->owner = $plugin;
-        $this->handler = null;
-        $this->registeredListeners = [];
-        $this->disposed = false;
-    }
+        /** @var bool */
+        private $disposed;
 
-    public function set_handler(callable $handler): void {
-        if($this->disposed) return;
-
-        $this->handler = $handler;
-    }
-
-    public function listen(string $event): void {
-        if($this->disposed) return;
-        if($this->handler === null) return;
-        if(isset($this->registeredListeners[$event])) return;
-
-        $this->registeredListeners[$event] = EventHelper::register(
-            $event,
-            $this,
-            EventPriority::NORMAL,
-            new CallbackEventExecutor($this->handler),
-            $this->owner
-        );
-    }
-
-    public function cancelAll(): void {
-        foreach($this->registeredListeners as $event => $listener) {
-            EventHelper::unregister($event, $listener);
+        public function __construct(Plugin $plugin)
+        {
+            $this->owner = $plugin;
+            $this->handler = null;
+            $this->registeredListeners = [];
+            $this->disposed = false;
         }
-        $this->registeredListeners = [];
+
+        public function set_handler(callable $handler): void
+        {
+            if ($this->disposed) return;
+
+            $this->handler = $handler;
+        }
+
+        public function listen(string $event): void
+        {
+            if ($this->disposed) return;
+            if ($this->handler === null) return;
+            if (isset($this->registeredListeners[$event])) return;
+
+            $this->registeredListeners[$event] = EventHelper::register(
+                $event,
+                $this,
+                EventPriority::NORMAL,
+                new CallbackEventExecutor($this->handler),
+                $this->owner
+            );
+        }
+
+        public function cancelAll(): void
+        {
+            foreach ($this->registeredListeners as $event => $listener) {
+                EventHelper::unregister($event, $listener);
+            }
+            $this->registeredListeners = [];
+        }
+
+        public function dispose(): void
+        {
+            foreach ($this->registeredListeners as $event => $listener) {
+                EventHelper::unregister($event, $listener);
+            }
+            $this->owner = null;
+            $this->handler = null;
+            $this->registeredListeners = [];
+            $this->disposed = true;
+        }
     }
 
-    public function dispose(): void {
-        foreach($this->registeredListeners as $event => $listener) {
-            EventHelper::unregister($event, $listener);
-        }
-        $this->owner = null;
-        $this->handler = null;
-        $this->registeredListeners = [];
-        $this->disposed = true;
-    }
 }
