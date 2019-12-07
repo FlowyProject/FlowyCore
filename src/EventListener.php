@@ -42,7 +42,7 @@ class EventListener implements Listener {
             $event,
             $this,
             EventPriority::NORMAL,
-            new ClosureEventExecutor($this->handler),
+            new CallbackEventExecutor($this->handler),
             $this->owner
         );
     }
